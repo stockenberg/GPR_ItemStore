@@ -1,6 +1,9 @@
 # itemstore
+- Hausaufgabe: Installiert eine RegisterComponent mit passendem HTML Markup
 
 > A Vue.js project
+
+
 ## Install
 ```bash
 # install vue-cli
@@ -13,6 +16,9 @@ cd project-name
 
 # launch in dev mode
 npm run dev
+
+# Install bootstrap
+npm install bootstrap --save
 
 ```
 
