@@ -3,25 +3,28 @@
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                <button @click="show = !show" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <router-link to="/cart" class="nav-link">Warenkorb</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/login" class="nav-link">Login</router-link>
-
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/shop" class="nav-link">Shop</router-link>
-                        </li>
-                    </ul>
-                </div>
+                <transition name="fade">
+                    <div :class="{'show': show}" v-if="show" class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <router-link to="/shop" class="nav-link">Shop</router-link>
+                            </li>
+                            <li class="nav-item active">
+                                <router-link to="/cart" class="nav-link">Warenkorb</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/login" class="nav-link">Login</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/register" class="nav-link">Register</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </transition>
             </nav>
         </header>
 
@@ -31,9 +34,21 @@
 
 <script>
     export default {
-        name: 'App'
+        name: 'App',
+        data() {
+            return{
+                show: false
+            }
+        },
+
     }
 </script>
 
 <style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
 </style>
