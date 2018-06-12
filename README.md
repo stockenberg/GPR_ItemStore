@@ -1,6 +1,20 @@
 # itemstore
 
 > A Vue.js project
+## Install
+```bash
+# install vue-cli
+npm install -g @vue/cli
+npm install -g @vue/cli-init
+
+# create vue Project
+vue init webpack project-name
+cd project-name
+
+# launch in dev mode
+npm run dev
+
+```
 
 ## Build Setup
 
