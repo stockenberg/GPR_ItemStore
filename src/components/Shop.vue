@@ -10,72 +10,13 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col" v-for="(item,index) in items">
                 <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
+                    <img class="card-img-top" :src="item.img" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="../assets/sword.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <p class="card-text">{{item.description}}</p>
+                        <a href="#" @click="addToCart(item.id)" class="btn btn-primary">Buy</a>
                     </div>
                 </div>
             </div>
@@ -84,8 +25,28 @@
 </template>
 
 <script>
+
+    import Sword from '../assets/sword.jpeg';
+
     export default {
-        name: "Shop"
+        name: "Shop",
+        data () {
+            return{
+                test: "hallo",
+                items: [
+                    {id: 1, title: 'Doombringer', description: 'Krasse waffe!', img: Sword},
+                    {id: 2, title: 'Infinity Edge', description: 'Noch krassere waffe!', img: Sword},
+                    {id: 3, title: 'Kabutz', description: 'Zweihandhammer', img: Sword},
+                    {id: 4, title: 'Divine Sword', description: 'Total heilig ey..', img: Sword},
+                ]
+            }
+        },
+        methods: {
+            addToCart(id) {
+                this.$toast.success('Added to Cart', 'Item was added successfully, id: ' + id);
+                // TODO : ajax request to php - add id to session
+            }
+        }
     }
 </script>
 

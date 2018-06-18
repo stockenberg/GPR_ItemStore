@@ -3,15 +3,15 @@
         <form class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" data-cip-id="inputEmail">
+            <input type="email" id="inputEmail" v-model="user.username" class="form-control" placeholder="Email address" required="" autofocus="" data-cip-id="inputEmail">
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" data-cip-id="inputPassword">
+            <input type="password" id="inputPassword" v-model="user.password" class="form-control" placeholder="Password" required="" data-cip-id="inputPassword">
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" value="remember-me" v-model="user.remember"> Remember me
                 </label>
             </div>
-            <button @click.prevent="alertMe" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button @click.prevent="logIn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
         </form>
     </div>
@@ -20,9 +20,21 @@
 <script>
     export default {
         name: "Login",
+        data () {
+            return{
+                user: {
+                    username: null,
+                    password: null,
+                    remember: false
+                }
+            }
+        },
         methods: {
             alertMe() {
                 alert('Hallo');
+            },
+            logIn(){
+                console.log(this.user);
             }
         }
     }

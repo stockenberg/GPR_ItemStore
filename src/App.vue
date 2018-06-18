@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <transition name="fade">
-                    <div :class="{'show': show}" v-if="show" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div :class="{'show': show}" class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <router-link to="/shop" class="nav-link">Shop</router-link>

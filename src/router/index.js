@@ -11,6 +11,11 @@ Vue.use(Router)
 export default new Router({
     routes: [
         {
+            path: '/',
+            name: 'Shop',
+            component: Shop
+        },
+        {
             path: '/shop',
             name: 'Shop',
             component: Shop

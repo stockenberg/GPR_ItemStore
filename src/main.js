@@ -3,10 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueIziToast from 'vue-izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.use(VueIziToast);
 
 /* eslint-disable no-new */
 new Vue({
