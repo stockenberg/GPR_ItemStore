@@ -30,11 +30,14 @@
             }
         },
         methods: {
-            alertMe() {
-                alert('Hallo');
-            },
             logIn(){
-                console.log(this.user);
+                if(this.user.username === null || this.user.password === null){
+                    // TODO : revisit this function after php implementation
+                    this.$toast.error('Username or password are incorrect');
+                }else{
+                    console.log(this.user);
+                }
+
             }
         }
     }

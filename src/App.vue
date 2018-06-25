@@ -45,6 +45,9 @@
 </script>
 
 <style>
+    .container{
+        text-align: center;
+    }
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
