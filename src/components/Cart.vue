@@ -21,12 +21,12 @@
                                                                               src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
                                                                               style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="#">{{item.title}}</a></h4>
+                                    <h4 class="media-heading"><a href="#">{{item.name}}</a></h4>
                                 </div>
                             </div>
                         </td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
-                            <input type="number" class="form-control" v-model="item.quantity">
+                            <input type="number" class="form-control" @change="addQuantity(item.id)" v-model="item.quantity">
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>$ {{ Math.round(item.price * 100) / 100}}</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>$ {{Math.round((item.price * item.quantity) * 100) / 100}}</strong></td>
@@ -37,7 +37,6 @@
                         </td>
                     </tr>
 
-                    <!-- later --->
                     <tr>
                         <td> </td>
                         <td>  </td>
@@ -78,14 +77,17 @@
         name: "Cart",
         data() {
             return {
-                cart: [
-                    {id: 1, quantity: 1, title: 'Doombringer', description: 'Krasse waffe!', price: 13.37},
-                    {id: 2, quantity: 3, title: 'Infinity Edge', description: 'Noch krassere waffe!', price: 8.15},
+                cart: null,
 
-                ]
             }
         },
         mounted() {
+            if(localStorage.userid == null){
+                console.log("user is not logged in")
+                this.$router.push('/login');
+            }
+
+            this.cart = JSON.parse(localStorage.getItem('cart'));
 
         },
         computed: {
@@ -98,6 +100,18 @@
           }
         },
         methods: {
+            addQuantity(id){
+                var cart = JSON.parse(localStorage.getItem('cart'));
+
+                for(var i = 0; i < cart.length; i++){
+                    if(cart[i].id = id){
+                        cart[i].quantity += 1;
+                    }
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                console.log(localStorage);
+            },
             removeFromCart() {
                 this.$toast.success('Removed from cart', 'congratz');
                 // TODO : Remove item with id from session

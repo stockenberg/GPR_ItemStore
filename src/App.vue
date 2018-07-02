@@ -11,16 +11,19 @@
                     <div :class="{'show': show}" class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <router-link to="/shop" class="nav-link">Shop</router-link>
+                                <router-link to="/shop" class="nav-link" v-if="userid != null">Shop</router-link>
                             </li>
                             <li class="nav-item active">
-                                <router-link to="/cart" class="nav-link">Warenkorb</router-link>
+                                <router-link to="/cart" class="nav-link" v-if="userid != null">Warenkorb</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/login" class="nav-link">Login</router-link>
+                                <router-link to="/login" class="nav-link" v-if="userid == null">Login</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/register" class="nav-link">Register</router-link>
+                                <a @click="logout()" class="nav-link" v-if="userid != null">Log Out!</a>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/register" class="nav-link" v-if="userid == null">Register</router-link>
                             </li>
                         </ul>
                     </div>
@@ -37,9 +40,26 @@
         name: 'App',
         data() {
             return{
+                userid: null,
                 show: false
             }
         },
+        mounted() {
+            this.userid = localStorage.userid || null;
+
+            eventHub.$on('logged_in', function (id) {
+                this.userid = id;
+                console.log("id saved");
+            })
+        },
+        methods: {
+            logout(){
+                localStorage.removeItem('userid');
+                this.userid = null;
+                console.log(localStorage);
+                this.$router.push('/login');
+            }
+        }
 
     }
 </script>

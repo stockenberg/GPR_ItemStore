@@ -36,6 +36,18 @@
                     this.$toast.error('Username or password are incorrect');
                 }else{
                     console.log(this.user);
+                    axios.post('http://localhost:8080?case=user&action=login', 'data=' + JSON.stringify(this.user))
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data.data.userid);
+                        localStorage.setItem('userid', res.data.data.userid);
+                        eventHub.$emit('logged_in', res.data.data.userid);
+                        // TODO : fix this!
+                        //window.location.href = "http://localhost:8081/#/shop"
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
                 }
 
             }

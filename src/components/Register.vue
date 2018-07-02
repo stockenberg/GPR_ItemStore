@@ -58,8 +58,9 @@
                     // TODO : post the request to the php script
                     console.log(this.register);
    
-                    axios.post('http://localhost:8080/?case=user&action=register', JSON.stringify(this.register))
+                    axios.post('http://localhost:8080/?case=user&action=register', 'data=' + JSON.stringify(this.register))
                         .then(res => {
+                        
                             console.log(res)
                         })
                         .catch(err => {

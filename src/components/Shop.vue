@@ -20,9 +20,9 @@
                 <div class="card">
                     <img class="card-img-top" :src="'../assets/' + item.img_name" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{item.name}}</h5>
+                        <h5 class="card-title">{{item.name}} {{item.id}}</h5>
                         <p class="card-text">{{item.description}}</p>
-                        <a href="#" @click="addToCart(item.id)" class="btn btn-primary">Buy</a>
+                        <a href="#" @click="addToCart(item)" class="btn btn-primary">Buy</a>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,10 @@
         mounted() {
             this.getAllItems();
             setInterval(this.getAllItems, 10000)
+            if(localStorage.userid == null){
+                console.log("user is not logged in")
+                this.$router.push('/login');
+            }
         },
         methods: {
             get(apiCase, action){
@@ -71,7 +75,35 @@
             imagePath(imgName) {
                 return this.imgPath + imgName;
             },
-            addToCart(id) {
+            addToCart(item) {
+
+                // add Quantity
+                item.quantity = 1
+
+                // Get Cart from LocalStorage
+                var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                // inital checker if item was found in loop
+                found = false;
+
+                // Check entries in localStorage and add 1 to quantity
+                if(cart.length > 0){
+                    for(var i = 0; i < cart.length; i++){
+                        if(cart[i].id === item.id){
+                            cart[i].quantity += 1;
+                            var found = true;
+                        }
+                    }
+                }
+
+                // if no entry is found - push item
+                if(!found){
+                    cart.push(item);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // localStorage.removeItem('cart'); reset
                 this.$toast.success('Added to Cart', 'Item was added successfully, id: ' + id);
                 // TODO : ajax request to php - add id to session
             }

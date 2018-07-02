@@ -17,6 +17,8 @@ window.axios = axios;
 
 Vue.use(VueIziToast);
 
+window.eventHub = new Vue();
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
