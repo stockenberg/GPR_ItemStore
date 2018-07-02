@@ -1,9 +1,5 @@
 <template>
-    <div class="signup-form">
-        <h2>Registered users</h2>
-        <ul>
-            <li v-for="user in users" :key="user.id">{{user.username}}</li>
-        </ul>
+    <div class="signup-form">     
         <form action="" method="post">
             <h2>Register</h2>
             <p class="hint-text">Create your account. It's free and only takes a minute.</p>
@@ -61,6 +57,14 @@
                 if(this.success){
                     // TODO : post the request to the php script
                     console.log(this.register);
+   
+                    axios.post('http://localhost:8080/?case=user&action=register', JSON.stringify(this.register))
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+
+                        });
                 }
 
             },

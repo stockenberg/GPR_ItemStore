@@ -18,9 +18,9 @@
         <div class="row">
             <div class="col" v-for="(item,index) in items" :key="index">
                 <div class="card">
-                    <img class="card-img-top" :src="item.img" alt="Card image cap">
+                    <img class="card-img-top" :src="'../assets/' + item.img_name" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{item.title}}</h5>
+                        <h5 class="card-title">{{item.name}}</h5>
                         <p class="card-text">{{item.description}}</p>
                         <a href="#" @click="addToCart(item.id)" class="btn btn-primary">Buy</a>
                     </div>
@@ -41,19 +41,28 @@
                 test: "hallo",
                 imgPath: '../assets/',
                 headline: null,
-                items: [
-                    {id: 1, title: 'Doombringer', description: 'Krasse waffe!', img: Sword},
-                    {id: 2, title: 'Infinity Edge', description: 'Noch krassere waffe!', img: Sword},
-                    {id: 3, title: 'Kabutz', description: 'Zweihandhammer', img: Sword},
-                    {id: 4, title: 'Divine Sword', description: 'Total heilig ey..', img: Sword},
-                ]
+                items: null
             }
+        },
+        mounted() {
+            this.getAllItems();
+            setInterval(this.getAllItems, 10000)
         },
         methods: {
             get(apiCase, action){
                 axios.get("http://localhost:8080/?case=" + apiCase + "&action=" + action)
                 .then(res => {
                     this.headline = res.data.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            },
+            getAllItems(){
+                axios.get('http://localhost:8080/?case=item&action=getAll')
+                .then(res => {
+                    console.log(res);
+                    this.items = res.data.data;
                 })
                 .catch(err => {
                     console.log(err);
