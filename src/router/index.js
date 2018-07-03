@@ -12,19 +12,21 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'Shop',
-            component: Shop
+            name: 'Login',
+            component: Login
         },
         {
             path: '/shop',
             name: 'Shop',
             component: Shop
         },
+        /*
         {
             path: '/login',
             name: 'Login',
             component: Login
         },
+        */
         {
             path: '/cart',
             name: 'Warenkorb',

@@ -18,7 +18,7 @@
                         <td class="col-sm-8 col-md-6" >
                             <div class="media">
                                 <a class="thumbnail pull-left" href="#"> <img class="media-object"
-                                                                              src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                                                                              :src="require('../assets/' + item.img_name)"
                                                                               style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="#">{{item.name}}</a></h4>
@@ -117,8 +117,16 @@
                 // TODO : Remove item with id from session
             },
             checkOut(){
-                let payload = {cart: this.cart, total: this.totalValue};
+                let payload = {cart: this.cart, total: this.totalValue, userid: localStorage.getItem('userid') || null};
                 console.log(payload);
+
+                axios.post('http://localhost:8080/?case=user&action=buy', 'data=' + JSON.stringify(payload))
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
                 // TODO : ship to php and parse into database
                 console.log('request will be sent to php script - saved in database etc.');
             }
